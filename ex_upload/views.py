@@ -28,3 +28,20 @@ def file_list(request):
                 'ex_upload/file_list.html',
                 {'list':list}
     )
+    
+import os
+from django.conf import settings
+    
+def delete_file(request, id):
+    file = UploadFile.objects.get(pk=id)
+    
+    #실제 업로드된 파일도 삭제
+    media_root = settings.MEDIA_ROOT
+    remove_file = media_root + "/" + str(file.file)
+    
+    if os.path.isfile(remove_file): # 리무브파일이 실제 파일이라면 삭제하겠다. 존재하지 않는다면 삭제하지 않고 넘어감
+        os.remove(remove_file) # 실제 파일 삭제
+    
+    file.delete() # DB에서 삭제
+    
+    return redirect(reverse('ex_upload:list'))
