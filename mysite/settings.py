@@ -124,7 +124,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 업로드 된 파일에 대한 요청 URL
-MEDIA_URL = '/'
+MEDIA_URL = '/media/'
 
 # MEDIA_URL에 매핑될 폴더 경로
-MEDIA_ROOT = BASE_DIR
+import os
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
