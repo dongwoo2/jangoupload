@@ -18,3 +18,13 @@ def upload(request):
         form = UploadFileForm()
         
     return render(request, 'ex_upload/upload_form.html', {'form':form})
+
+from .models import UploadFile
+
+def file_list(request):
+    list = UploadFile.objects.all().order_by('-pk')
+    return render(
+                request,
+                'ex_upload/file_list.html',
+                {'list':list}
+    )
